@@ -49,7 +49,8 @@ class BaseWriter(object):
 class Stdout(BaseWriter):
 
     def __init__(self, output_file):
-        self.Result = namedtuple("Result", "homeTeam, goalsHomeTeam, awayTeam, goalsAwayTeam")
+        self.Result = namedtuple(
+            "Result", "homeTeam, goalsHomeTeam, awayTeam, goalsAwayTeam")
 
         enums = dict(
             WIN="red",
@@ -132,7 +133,8 @@ class Stdout(BaseWriter):
                       use_12_hour_format):
         """Prints the data in a pretty format"""
         for match in total_data['matches']:
-            self.scores(self.parse_result(match), add_new_line=not show_datetime)
+            self.scores(self.parse_result(match),
+                        add_new_line=not show_datetime)
             if show_datetime:
                 click.secho('   %s' % Stdout.utc_to_local(match["utcDate"],
                                                           use_12_hour_format,
@@ -209,12 +211,12 @@ class Csv(BaseWriter):
     def generate_output(self, result):
         if not self.output_filename:
             for row in result:
-                click.echo(u','.join(unicode(item) for item in row))
+                click.echo(u','.join(item for item in row))
         else:
             with open(self.output_filename, 'w') as csv_file:
                 writer = csv.writer(csv_file)
                 for row in result:
-                    row = [unicode(s).encode('utf-8') for s in row]
+                    row = [s.encode('utf-8') for s in row]
                     writer.writerow(row)
 
     def live_scores(self, live_scores):
@@ -295,7 +297,7 @@ class Json(BaseWriter):
                                   ensure_ascii=False))
         else:
             with io.open(self.output_filename, 'w', encoding='utf-8') as f:
-                data = json.dumps(result, f, indent=4,
+                data = json.dumps(result, indent=4,
                                   separators=(',', ': '), ensure_ascii=False)
                 f.write(data)
 

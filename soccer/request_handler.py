@@ -18,21 +18,23 @@ class RequestHandler(object):
         """Handles api.football-data.org requests"""
         req = requests.get(RequestHandler.BASE_URL + url, headers=self.headers)
         status_code = req.status_code
-        if status_code == requests.codes.ok:
+        if status_code == 200:
             return req
-        elif status_code == requests.codes.bad:
+        elif status_code == 401:
             raise APIErrorException('Invalid request. Check parameters.')
-        elif status_code == requests.codes.forbidden:
-            raise APIErrorException('This resource is restricted')
-        elif status_code == requests.codes.not_found:
-            raise APIErrorException('This resource does not exist. Check parameters')
-        elif status_code == requests.codes.too_many_requests:
-            raise APIErrorException('You have exceeded your allowed requests per minute/day')
+        elif status_code == 403:
+            raise APIErrorException('Forbidden. Check your API key.')
+        elif status_code == 404:
+            raise APIErrorException(
+                'Endpoint not found.')
+        elif status_code == 429:
+            raise APIErrorException(
+                'Too many requests.')
 
     def get_live_scores(self, use_12_hour_format):
         """Gets the live scores"""
         req = requests.get(RequestHandler.LIVE_URL)
-        if req.status_code == requests.codes.ok:
+        if req.status_code == 200:
             scores_data = []
             scores = req.json()
             if len(scores["games"]) == 0:
@@ -51,7 +53,8 @@ class RequestHandler(object):
                 scores_data.append(d)
             self.writer.live_scores(scores_data)
         else:
-            click.secho("There was problem getting live scores", fg="red", bold=True)
+            click.secho("There was problem getting live scores",
+                        fg="red", bold=True)
 
     def get_team_scores(self, team, time, show_upcoming, use_12_hour_format):
         """Queries the API and gets the particular team scores"""
@@ -66,7 +69,8 @@ class RequestHandler(object):
                     click.secho("No action during past week. Change the time "
                                 "parameter to get more fixtures.", fg="red", bold=True)
                 else:
-                    self.writer.team_scores(team_scores, time, show_upcoming, use_12_hour_format)
+                    self.writer.team_scores(
+                        team_scores, time, show_upcoming, use_12_hour_format)
             except APIErrorException as e:
                 click.secho(e.args[0],
                             fg="red", bold=True)
@@ -88,7 +92,6 @@ class RequestHandler(object):
                         fg="red", bold=True)
 
     def get_league_scores(self, league, time, show_upcoming, use_12_hour_format):
-
         """
         Queries the API and fetches the scores for fixtures
         based upon the league and time parameter
@@ -109,7 +112,8 @@ class RequestHandler(object):
                                           time, show_upcoming,
                                           use_12_hour_format)
             except APIErrorException:
-                click.secho("No data for the given league.", fg="red", bold=True)
+                click.secho("No data for the given league.",
+                            fg="red", bold=True)
         else:
             # When no league specified. Print all available in time frame.
             try:
@@ -133,7 +137,8 @@ class RequestHandler(object):
             req = self._get('teams/{}/'.format(team_id))
             team_players = req.json()['squad']
             if not team_players:
-                click.secho("No players found for this team", fg="red", bold=True)
+                click.secho("No players found for this team",
+                            fg="red", bold=True)
             else:
                 self.writer.team_players(team_players)
         except APIErrorException:

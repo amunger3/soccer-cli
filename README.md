@@ -98,11 +98,8 @@ $ soccer --help
 ```
 ### List of supported leagues and their league codes
 
-- World:
-  - WC: World Cup (if running/active)
-- Europe:
-  - CL: Champions League
-  - EC: European Championships (if running/active)
+#### Club Competitions
+
 - Brazil:
   - BSA: Brazil Serie A
 - England:
@@ -119,7 +116,17 @@ $ soccer --help
 - Portugal:
   - PPL: Primeira Liga
 - Spain:
-  - LLIGA: La Liga
+  - PD: La Liga
+- UEFA (Europe)
+  - CL: Champions League
+  - EL: Europa League
+
+#### International Competitions
+
+- World:
+  - WC: World Cup (if running/active)
+- Europe:
+  - EC: European Championships (if running/active)
 
 ### Team and team codes
 
