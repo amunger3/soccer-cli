@@ -1,16 +1,7 @@
-<p align="center">
-  <img src="http://i.imgur.com/F9zuexe.jpg" width="500px" />
-</p>
-
-Soccer CLI
+Football CLI
 =====
 
-[![PyPI version](https://badge.fury.io/py/soccer-cli.svg)](http://badge.fury.io/py/soccer-cli) [![Join the chat at https://gitter.im/architv/soccer-cli](https://badges.gitter.im/architv/soccer-cli.svg)](https://gitter.im/architv/soccer-cli?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Run on Repl.it](https://repl.it/badge/github/architv/soccer-cli)](https://repl.it/github/architv/soccer-cli)
-
-Soccer for Hackers - a CLI for all the football scores.
-
-![](http://i.imgur.com/9QbcUrj.gif)
+Football for the command line – a CLI for football data uding the [Football-Data API](http://api.football-data.org/).
 
 Install
 =====
@@ -21,7 +12,7 @@ An API key from [football-data.org](http://api.football-data.org/) will be requi
 ### Build from source
 
 ```bash
-$ git clone https://github.com/architv/soccer-cli.git
+$ git clone https://github.com/amunger3/soccer-cli.git
 $ cd soccer-cli
 $ python setup.py install
 ```
@@ -34,9 +25,11 @@ $ cat /home/username/.soccer-cli.ini
 ```
 
 #### Note:
-Currently supports Linux, Mac OS X, NetBSD, FreeBSD and Windows.
+Currently supports Linux, Windows, Mac OS X, NetBSD, and FreeBSD.
 
-To get colorized terminal output on Windows, make sure to install [ansicon](https://github.com/adoxa/ansicon/releases/latest) and [colorama](https://pypi.org/project/colorama/).
+For colorized terminal output on Windows, make sure to install [ansicon](https://github.com/adoxa/ansicon/releases/latest) and [colorama](https://pypi.org/project/colorama/).
+
+If you are using [Windows Terminal](https://github.com/Microsoft/Terminal), you do not need ansicon.
 
 Usage
 ====
@@ -50,15 +43,15 @@ $ soccer --standings --league=PL # PL is the league code for English Premier Lea
 ### Get scores for a particular team
 
 ```bash
-$ soccer --team=MUFC # MUFC is the team code for Manchester United
+$ soccer --team=MUFC          # MUFC is the team code for Manchester United
 $ soccer --team=PSG --time=10 # scores for all the Paris Saint-Germain games over the past 10 days
 ```
 
 ### Get upcoming fixtures
 
 ```bash
-$ soccer --time 5 --upcoming # get upcoming fixtures for next 5 days
-$ soccer --time 5 --upcoming --use12hour # upcoming fixture for next 5 days with timings in 12 hour format
+$ soccer --time 5 --upcoming              # get upcoming fixtures for next 5 days
+$ soccer --time 5 --upcoming --use12hour  # upcoming fixture for next 5 days with timings in 12 hour format
 ```
 
 ### Get scores for live games
@@ -70,8 +63,8 @@ $ soccer --live
 ### Get scores for a particular league
 
 ```bash
-$ soccer --league=BL # BL is the league code for Bundesliga
-$ soccer --league=FL --time=15 # get scores for all the French Ligue games over the past 15 days
+$ soccer --league=BL            # BL is the league code for Bundesliga
+$ soccer --league=FL --time=15  # get scores for all the French Ligue games over the past 15 days
 ```
 
 ### Get information about players of a team
@@ -89,7 +82,7 @@ $ soccer --time=10 # get scores for all the seven leagues over the past 10 days
 ### Get the output in csv or json
 
 ```bash
-$ soccer --league PL --standings --csv # prints the output in csv format
+$ soccer --league PL --standings --csv  # prints the output in csv format
 $ soccer --league PL --standings --json # prints the output in json format
 ```
 
@@ -146,29 +139,16 @@ To run specific test file (in this case the tests in test_request_handler.py)
 $ python -m unittest tests.test_request_handler
 ```
 
-Demo
+
+TODO
 ====
-
-### Standings
-![standings](http://i.imgur.com/voyWLQE.gif)
-
-### Live scores
-![](http://i.imgur.com/EX9GMAM.gif)
-
-### Team scores
-![](http://i.imgur.com/QfvH8QL.png)
-
-### Output in json format
-![](http://i.imgur.com/jqGhLia.gif)
-
-Todo
-====
+- [ ] Support all of the routes in the API (namely, the 'match' endpoint.)
 - [ ] Enable cache.
 - [ ] Add more test cases.
 - [x] Add fixtures for UEFA Champions League.
 - [ ] Add league filter for live scores.
-- [x] Color coding for Europa league and differentiation between straight CL and CL playoff spots, and the same for EL spots.
-- [x] Add support for team line up.
+- [x] Color coding for Europa league and differentiation between CL/EL and CL/EL playoff qualification positions.
+- [x] Add support for team line-up and formations.
 - [ ] A built in watch feature so you can run once with --live and just leave the program running.
 - [ ] Python 3 support.
 
@@ -176,8 +156,3 @@ Licence
 ====
 Open sourced under [MIT License](LICENSE)
 
-Support
-====
-If you like my work, please support the project by donating.
-
-- https://gratipay.com/~architv
